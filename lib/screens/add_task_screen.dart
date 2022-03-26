@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_flutter/models/task.dart';
+import 'package:todo_flutter/providers/task_provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final void Function(String) onAddTask;
-  const AddTaskScreen({Key? key, required this.onAddTask}) : super(key: key);
+  const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,10 @@ class AddTaskScreen extends StatelessWidget {
               autofocus: true,
               textAlign: TextAlign.center,
               onEditingComplete: () {
-                onAddTask(taskName);
+                Provider.of<TaskProvider>(context, listen: false).addTask(
+                  Task(name: taskName),
+                );
+                Navigator.pop(context);
               },
               onChanged: (value) {
                 taskName = value;
@@ -44,7 +49,10 @@ class AddTaskScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                onAddTask(taskName);
+                Provider.of<TaskProvider>(context, listen: false).addTask(
+                  Task(name: taskName),
+                );
+                Navigator.pop(context);
               },
               style: TextButton.styleFrom(
                 primary: Colors.white,

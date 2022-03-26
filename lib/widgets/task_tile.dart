@@ -4,13 +4,19 @@ import 'package:todo_flutter/models/task.dart';
 class TaskTile extends StatelessWidget {
   final Task task;
   final void Function(bool?) checkboxCallback;
+  final VoidCallback longPressCallback;
 
-  const TaskTile(this.task, {required this.checkboxCallback, Key? key})
-      : super(key: key);
+  const TaskTile(
+    this.task, {
+    required this.checkboxCallback,
+    required this.longPressCallback,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: longPressCallback,
       title: Text(
         task.name,
         style: TextStyle(
